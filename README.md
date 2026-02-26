@@ -47,6 +47,15 @@ Every page follows this structure:
 - Transitions: 150-200ms with ease-in-out
 - No bounce or parallax effects
 
+## Routing System
+The app includes a complete route skeleton with:
+- **Dashboard** (`/`) - Main dashboard page
+- **Saved** (`/saved`) - Saved notifications
+- **Digest** (`/digest`) - Email digest settings
+- **Settings** (`/settings`) - Application settings
+- **Proof** (`/proof`) - Proof of concept page
+- **404 Page** - Handles unknown routes
+
 ## Running the Design System
 To view the design system locally:
 
@@ -61,4 +70,10 @@ Or to serve the production build:
 npm start
 ```
 
-Visit the design system at [design-system.html](./design-system.html) to see all components and guidelines in action.
+Visit the application at [http://localhost:8080](http://localhost:8080) to see the routing system in action.
+
+## Mobile Responsiveness
+- Responsive navigation with hamburger menu
+- Mobile-first design approach
+- Clean dropdown panel for mobile navigation
+- Same design rules applied across all devices

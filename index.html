@@ -3,135 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Notification App - Design System</title>
+    <title>Job Notification App</title>
     <link rel="stylesheet" href="src/css/design-system.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="top-bar">
-            <div class="top-bar-left">Job Notification App</div>
-            <div class="top-bar-center">Step 1 / 4</div>
-            <div class="top-bar-right">
-                <span class="status-badge status-not-started">Not Started</span>
-            </div>
-        </header>
-        
-        <section class="context-header">
-            <h1>Design System Foundation</h1>
-            <p>Calm, intentional, coherent, confident interface elements</p>
-        </section>
-        
-        <main class="primary-workspace">
-            <div class="card">
-                <h2>Design System Overview</h2>
-                <p>This design system establishes the visual and interactive foundation for the Job Notification App. All components follow our philosophy of calm, intentional, and coherent design.</p>
-                
-                <h3>Color System</h3>
-                <div class="color-palette">
-                    <div class="color-swatch" style="background-color: #F7F6F3;">
-                        <span>Background: #F7F6F3</span>
-                    </div>
-                    <div class="color-swatch" style="background-color: #111111;">
-                        <span style="color: white;">Text: #111111</span>
-                    </div>
-                    <div class="color-swatch" style="background-color: #8B0000;">
-                        <span style="color: white;">Accent: #8B0000</span>
-                    </div>
-                    <div class="color-swatch" style="background-color: #4CAF50;">
-                        <span style="color: white;">Success: #4CAF50</span>
-                    </div>
-                    <div class="color-swatch" style="background-color: #FFC107;">
-                        <span>Warning: #FFC107</span>
-                    </div>
-                </div>
-                
-                <h3>Typography Scale</h3>
-                <div class="typography-demo">
-                    <h1 class="heading">Heading 1 (Serif)</h1>
-                    <h2 class="heading">Heading 2 (Serif)</h2>
-                    <h3 class="heading">Heading 3 (Serif)</h3>
-                    <p class="body-text">Body text (Sans-serif) - Clean, readable, 16-18px with 1.6-1.8 line height</p>
-                    <small class="caption">Caption text for additional information</small>
-                </div>
-                
-                <h3>Spacing Scale</h3>
-                <div class="spacing-demo">
-                    <div class="spacing-item" style="height: 8px; background: #eee;"></div>
-                    <div class="spacing-label">8px</div>
-                    
-                    <div class="spacing-item" style="height: 16px; background: #eee;"></div>
-                    <div class="spacing-label">16px</div>
-                    
-                    <div class="spacing-item" style="height: 24px; background: #eee;"></div>
-                    <div class="spacing-label">24px</div>
-                    
-                    <div class="spacing-item" style="height: 40px; background: #eee;"></div>
-                    <div class="spacing-label">40px</div>
-                    
-                    <div class="spacing-item" style="height: 64px; background: #eee;"></div>
-                    <div class="spacing-label">64px</div>
-                </div>
-                
-                <h3>Component Examples</h3>
-                <div class="component-examples">
-                    <button class="btn btn-primary">Primary Button</button>
-                    <button class="btn btn-secondary">Secondary Button</button>
-                    
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email">
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Sample Card</h3>
-                        <p>This is a sample card demonstrating the subtle border and clean layout.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-        <aside class="secondary-panel">
-            <div class="panel-content">
-                <h3>Design Principles</h3>
-                <ul>
-                    <li>No gradients</li>
-                    <li>No glassmorphism</li>
-                    <li>No neon colors</li>
-                    <li>No animation noise</li>
-                    <li>Maximum 4 colors across entire UI</li>
-                </ul>
-                
-                <div class="prompt-box">
-                    <h4>Implementation Prompt</h4>
-                    <textarea readonly>Design system foundation with calm, intentional interface elements following the specified color, typography, and spacing systems. All components should follow the philosophy of coherence and confidence without flashy elements.</textarea>
-                    <button class="copy-btn">Copy Prompt</button>
-                </div>
-            </div>
-        </aside>
-    </div>
-    
-    <footer class="proof-footer">
-        <div class="checklist">
-            <div class="check-item">
-                <input type="checkbox" id="ui-built" disabled>
-                <label for="ui-built">UI Built</label>
-            </div>
-            <div class="check-item">
-                <input type="checkbox" id="logic-working" disabled>
-                <label for="logic-working">Logic Working</label>
-            </div>
-            <div class="check-item">
-                <input type="checkbox" id="test-passed" disabled>
-                <label for="test-passed">Test Passed</label>
-            </div>
-            <div class="check-item">
-                <input type="checkbox" id="deployed" disabled>
-                <label for="deployed">Deployed</label>
-            </div>
-        </div>
-    </footer>
+    <div id="root"></div>
+    <script type="module" src="src/index.js"></script>
 </body>
 </html>
