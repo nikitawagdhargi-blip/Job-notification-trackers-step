@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Notification App - Design System Documentation</title>
+    <link rel="stylesheet" href="src/css/design-system.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <div class="top-bar-left">Job Notification App</div>
+            <div class="top-bar-center">Design System / 4 Steps</div>
+            <div class="top-bar-right">
+                <span class="status-badge status-shipped">Shipped</span>
+            </div>
+        </header>
+        
+        <section class="context-header">
+            <h1>Design System Components</h1>
+            <p>Comprehensive guide to all UI elements following our design philosophy</p>
+        </section>
+        
+        <main class="primary-workspace">
+            <div class="card">
+                <h2 class="heading">Design Philosophy</h2>
+                <p>Calm, intentional, coherent, confident interface elements that prioritize user focus and productivity. Our design avoids distractions with a clean aesthetic that guides users toward their goals.</p>
+                
+                <h3 class="heading">Core Principles</h3>
+                <ul>
+                    <li>No gradients, glassmorphism, neon colors, or animation noise</li>
+                    <li>Maximum 4 colors across entire UI</li>
+                    <li>Intentional whitespace using consistent spacing system</li>
+                    <li>Typography hierarchy that guides attention effectively</li>
+                    <li>Thoughtful interactions with appropriate transitions</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2 class="heading">Color System</h2>
+                <div class="color-palette">
+                    <div class="color-swatch" style="background-color: #F7F6F3;">
+                        <span>Background: #F7F6F3</span>
+                    </div>
+                    <div class="color-swatch" style="background-color: #111111;">
+                        <span style="color: white;">Text: #111111</span>
+                    </div>
+                    <div class="color-swatch" style="background-color: #8B0000;">
+                        <span style="color: white;">Accent: #8B0000</span>
+                    </div>
+                    <div class="color-swatch" style="background-color: #4CAF50;">
+                        <span style="color: white;">Success: #4CAF50</span>
+                    </div>
+                    <div class="color-swatch" style="background-color: #FF9800;">
+                        <span>Warning: #FF9800</span>
+                    </div>
+                </div>
+                
+                <h3 class="heading">Usage Guidelines</h3>
+                <p>Use the background color consistently across all surfaces. Reserve the accent color for primary actions and important highlights. Success and warning colors should only appear in status indicators and feedback messages.</p>
+            </div>
+            
+            <div class="card">
+                <h2 class="heading">Typography</h2>
+                <div class="typography-demo">
+                    <h1 class="heading">Heading 1 (36px)</h1>
+                    <h2 class="heading">Heading 2 (28px)</h2>
+                    <h3 class="heading">Heading 3 (22px)</h3>
+                    <p class="body-text">Body text (16px) - Clean, readable, with 1.6 line height. This demonstrates the sans-serif Inter font family used throughout the interface. The generous line height improves readability and creates a sense of spaciousness.</p>
+                    <small class="caption">Caption text (12-14px) for additional information, metadata, or subtle guidance.</small>
+                </div>
+                
+                <h3 class="heading">Usage Guidelines</h3>
+                <p>Serif headings (Playfair Display) create distinction and gravitas for section titles and important labels. Sans-serif body text (Inter) ensures optimal readability for extended content. Maintain the 16-18px size range for comfortable reading.</p>
+            </div>
+            
+            <div class="card">
+                <h2 class="heading">Spacing System</h2>
+                <div class="spacing-demo">
+                    <div>
+                        <div class="spacing-item" style="height: 8px; background: #eee; width: 100%;"></div>
+                        <div class="spacing-label">8px (XS)</div>
+                    </div>
+                    <div>
+                        <div class="spacing-item" style="height: 16px; background: #eee; width: 100%;"></div>
+                        <div class="spacing-label">16px (SM)</div>
+                    </div>
+                    <div>
+                        <div class="spacing-item" style="height: 24px; background: #eee; width: 100%;"></div>
+                        <div class="spacing-label">24px (MD)</div>
+                    </div>
+                    <div>
+                        <div class="spacing-item" style="height: 40px; background: #eee; width: 100%;"></div>
+                        <div class="spacing-label">40px (LG)</div>
+                    </div>
+                    <div>
+                        <div class="spacing-item" style="height: 64px; background: #eee; width: 100%;"></div>
+                        <div class="spacing-label">64px (XL)</div>
+                    </div>
+                </div>
+                
+                <h3 class="heading">Usage Guidelines</h3>
+                <p>Only use values from this scale. Never use arbitrary values like 13px or 27px. The progression creates rhythm and predictable relationships between elements. XS for micro-spacing, SM for component padding, MD for section separation, LG for major divisions, XL for page-level spacing.</p>
+            </div>
+            
+            <div class="card">
+                <h2 class="heading">Components</h2>
+                
+                <h3 class="heading">Buttons</h3>
+                <div class="component-examples">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary Action</button>
+                    <button class="btn btn-primary" disabled>Disabled</button>
+                </div>
+                
+                <h3 class="heading">Form Elements</h3>
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your.email@example.com">
+                </div>
+                
+                <h3 class="heading">Cards</h3>
+                <div class="card">
+                    <h3>Sample Card</h3>
+                    <p>This demonstrates the standard card component with subtle border, consistent padding, and clean typography.</p>
+                </div>
+                
+                <h3 class="heading">Status Indicators</h3>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <span class="status-badge status-not-started">Not Started</span>
+                    <span class="status-badge status-in-progress">In Progress</span>
+                    <span class="status-badge status-shipped">Complete</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="heading">Layout Structure</h2>
+                <p>Every page follows the same fundamental layout structure:</p>
+                
+                <ol>
+                    <li><strong>Top Bar:</strong> App name left, progress center, status right</li>
+                    <li><strong>Context Header:</strong> Large serif headline with descriptive subtext</li>
+                    <li><strong>Primary Workspace (70%):</strong> Main content area with clean cards</li>
+                    <li><strong>Secondary Panel (30%):</strong> Contextual information and guidance</li>
+                    <li><strong>Proof Footer:</strong> Completion checklist</li>
+                </ol>
+                
+                <h3 class="heading">Responsive Behavior</h3>
+                <p>Below 900px, the primary and secondary panels stack vertically with the secondary panel appearing below the primary content.</p>
+            </div>
+        </main>
+        
+        <aside class="secondary-panel">
+            <div class="panel-content">
+                <h3>Design Principles</h3>
+                <ul>
+                    <li>No gradients</li>
+                    <li>No glassmorphism</li>
+                    <li>No neon colors</li>
+                    <li>No animation noise</li>
+                    <li>Maximum 4 colors across entire UI</li>
+                    <li>Consistent border radius</li>
+                    <li>Thoughtful whitespace</li>
+                    <li>Clear typography hierarchy</li>
+                </ul>
+                
+                <div class="prompt-box">
+                    <h4>Design System Implementation</h4>
+                    <textarea readonly>Design system foundation with calm, intentional interface elements following the specified color, typography, and spacing systems. All components should follow the philosophy of coherence and confidence without flashy elements. Consistent use of 5-color palette, serif headings with sans-serif body text, 5-tier spacing system, and thoughtful interactions with 150-200ms transitions.</textarea>
+                    <button class="copy-btn">Copy Prompt</button>
+                </div>
+                
+                <h3>Additional Resources</h3>
+                <ul>
+                    <li><a href="src/utils/states.md">Error & Empty States Guide</a></li>
+                    <li><a href="src/css/design-system.css">CSS Variables Reference</a></li>
+                    <li><a href="#">Component Usage Examples</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    
+    <footer class="proof-footer">
+        <div class="checklist">
+            <div class="check-item">
+                <input type="checkbox" id="ui-built" checked disabled>
+                <label for="ui-built">UI Built</label>
+            </div>
+            <div class="check-item">
+                <input type="checkbox" id="logic-working" disabled>
+                <label for="logic-working">Logic Working</label>
+            </div>
+            <div class="check-item">
+                <input type="checkbox" id="test-passed" disabled>
+                <label for="test-passed">Test Passed</label>
+            </div>
+            <div class="check-item">
+                <input type="checkbox" id="deployed" disabled>
+                <label for="deployed">Deployed</label>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyBtn = document.querySelector('.copy-btn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    const textarea = this.previousElementSibling;
+                    textarea.select();
+                    document.execCommand('copy');
+                    
+                    // Show temporary feedback
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

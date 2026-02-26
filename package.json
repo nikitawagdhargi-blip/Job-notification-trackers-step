@@ -1,0 +1,22 @@
+{
+  "name": "job-notification-app-design-system",
+  "version": "1.0.0",
+  "description": "Premium SaaS Design System for Job Notification App",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s .",
+    "dev": "live-server --open=design-system.html"
+  },
+  "keywords": [
+    "design-system",
+    "saas",
+    "job-notification",
+    "ui-kit"
+  ],
+  "author": "Job Notification App Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  }
+}
