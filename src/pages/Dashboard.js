@@ -5,7 +5,7 @@ const Dashboard = () => {
     <div className="page-container">
       <div className="page-content">
         <h1 className="page-heading">Dashboard</h1>
-        <p className="page-subtext">This section will be built in the next step.</p>
+        <p className="page-subtext">No jobs yet. In the next step, you will load a realistic dataset.</p>
       </div>
     </div>
   );

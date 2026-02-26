@@ -482,6 +482,43 @@ ul li {
   min-height: 100vh;
 }
 
+/* SETTINGS FORM STYLES */
+.settings-form {
+  max-width: 500px;
+  margin: 0 auto var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-form .input-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.settings-form .input-group:last-child {
+  margin-bottom: 0;
+}
+
+.settings-form select {
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  background-color: var(--white);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.settings-form select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
+}
+
 /* MEDIA QUERIES FOR RESPONSIVENESS */
 @media (max-width: 900px) {
   .container {

@@ -4,8 +4,8 @@ const Saved = () => {
   return (
     <div className="page-container">
       <div className="page-content">
-        <h1 className="page-heading">Saved</h1>
-        <p className="page-subtext">This section will be built in the next step.</p>
+        <h1 className="page-heading">Saved Jobs</h1>
+        <p className="page-subtext">You haven't saved any jobs yet. Jobs you like will appear here for easy reference.</p>
       </div>
     </div>
   );
