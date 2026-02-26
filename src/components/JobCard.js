@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatPostedDate, formatExperience } from '../utils/jobUtils';
 
-const JobCard = ({ job, isSaved, onSaveJob, onViewJob, onApplyJob }) => {
+const JobCard = ({ job, matchScore, isSaved, onSaveJob, onViewJob, onApplyJob }) => {
   const handleSaveClick = (e) => {
     e.stopPropagation();
     onSaveJob(job.id);
@@ -17,11 +17,28 @@ const JobCard = ({ job, isSaved, onSaveJob, onViewJob, onApplyJob }) => {
     onApplyJob(job.applyUrl);
   };
 
+  // Determine score badge class based on match score
+  const getScoreBadgeClass = (score) => {
+    if (score >= 80) return 'score-green';
+    if (score >= 60) return 'score-amber';
+    if (score >= 40) return 'score-neutral';
+    return 'score-grey';
+  };
+
+  const getScoreBadgeText = (score) => {
+    return `${score}% match`;
+  };
+
   return (
     <div className="job-card">
       <div className="job-card-header">
         <div className="job-title">{job.title}</div>
         <div className="job-company">{job.company}</div>
+        {matchScore !== undefined && (
+          <div className={`score-badge ${getScoreBadgeClass(matchScore)}`}>
+            {getScoreBadgeText(matchScore)}
+          </div>
+        )}
       </div>
       
       <div className="job-card-body">

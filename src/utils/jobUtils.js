@@ -103,6 +103,9 @@ export const jobFilters = {
         return sortedJobs.sort((a, b) => a.title.localeCompare(b.title));
       case 'company':
         return sortedJobs.sort((a, b) => a.company.localeCompare(b.company));
+      case 'match-score':
+        // This will be handled in Dashboard component where preferences are available
+        return sortedJobs;
       case 'salary-high':
         return sortedJobs.sort((a, b) => {
           // Simple salary sorting - extract numbers and compare
@@ -126,14 +129,7 @@ export const jobFilters = {
       locations: ['All Locations', ...locations],
       modes: ['All Modes', ...modes],
       experiences: ['All Experience Levels', ...experiences],
-      sources: ['All Sources', ...sources],
-      sortOptions: [
-        { value: 'latest', label: 'Latest First' },
-        { value: 'oldest', label: 'Oldest First' },
-        { value: 'title', label: 'Title A-Z' },
-        { value: 'company', label: 'Company A-Z' },
-        { value: 'salary-high', label: 'Highest Salary' }
-      ]
+      sources: ['All Sources', ...sources]
     };
   }
 };

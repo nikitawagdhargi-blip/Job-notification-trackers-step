@@ -91,11 +91,12 @@ const FilterBar = ({
             onChange={(e) => onSortChange(e.target.value)}
             className="filter-select"
           >
-            {filterOptions.sortOptions.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
+            <option value="latest">Latest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title">Title A-Z</option>
+            <option value="company">Company A-Z</option>
+            <option value="match-score">Match Score</option>
+            <option value="salary-high">Highest Salary</option>
           </select>
         </div>
       </div>
