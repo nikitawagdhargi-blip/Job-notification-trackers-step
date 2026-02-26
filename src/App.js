@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import Saved from './pages/Saved';
 import Digest from './pages/Digest';
 import Proof from './pages/Proof';
+import TestChecklist from './pages/TestChecklist';
+import ShipLock from './pages/ShipLock';
 import NotFound from './pages/NotFound';
 import './css/design-system.css';
 
@@ -25,6 +27,8 @@ function App() {
               <Route path="/saved" element={<Saved />} />
               <Route path="/digest" element={<Digest />} />
               <Route path="/proof" element={<Proof />} />
+              <Route path="/jt/07-test" element={<TestChecklist />} />
+              <Route path="/jt/08-ship" element={<ShipLock />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
