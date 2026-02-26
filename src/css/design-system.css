@@ -1011,6 +1011,247 @@
   }
 }
 
+/* STATUS TRACKING STYLES */
+.status-badge {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-neutral {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.status-blue {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+}
+
+.status-red {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.status-green {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.status-button-group {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  margin: var(--spacing-sm) 0;
+}
+
+.status-button-group .btn {
+  padding: 6px 12px;
+  font-size: var(--font-size-xs);
+  flex: 1;
+  min-width: 80px;
+}
+
+/* STATUS UPDATES SECTION */
+.status-updates-section {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.status-updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.status-update-item {
+  padding: var(--spacing-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--white);
+  transition: var(--transition-fast);
+}
+
+.status-update-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.update-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xs);
+}
+
+.update-header .job-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.update-timestamp {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  margin-left: var(--spacing-sm);
+}
+
+.update-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+
+.update-details .company {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.update-details .status-badge {
+  margin-left: var(--spacing-sm);
+}
+
+/* TOAST STYLES */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.toast {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-md);
+  min-width: 300px;
+  max-width: 400px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.toast--visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast--success {
+  border-left: 4px solid #4caf50;
+}
+
+.toast--error {
+  border-left: 4px solid #f44336;
+}
+
+.toast--info {
+  border-left: 4px solid #2196f3;
+}
+
+.toast__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toast__message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.toast__close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast__close:hover {
+  color: var(--text-primary);
+}
+
+/* MEDIA QUERIES FOR STATUS COMPONENTS */
+@media (max-width: 768px) {
+  .status-button-group {
+    flex-direction: column;
+  }
+  
+  .status-button-group .btn {
+    width: 100%;
+  }
+  
+  .update-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .update-timestamp {
+    margin-left: 0;
+  }
+  
+  .update-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .update-details .status-badge {
+    margin-left: 0;
+  }
+  
+  .toast-container {
+    left: 10px;
+    right: 10px;
+    top: 10px;
+  }
+  
+  .toast {
+    min-width: auto;
+    max-width: none;
+    width: calc(100% - 20px);
+  }
+}
+
 /* MAIN CONTENT AREA */
 .main-content {
   background-color: var(--bg-primary);

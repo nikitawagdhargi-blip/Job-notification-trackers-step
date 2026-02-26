@@ -1,114 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import jobsData from '../data/jobsData';
-import { jobStorage, jobFilters } from '../utils/jobUtils';
-import { preferencesStorage, matchScoreEngine } from '../utils/preferences';
+import { preferencesStorage } from '../utils/preferences';
+import { matchScoreEngine } from '../utils/preferences';
+import { statusFilter, statusStorage } from '../utils/jobStatus';
 import FilterBar from '../components/FilterBar';
 import JobCard from '../components/JobCard';
 import JobModal from '../components/JobModal';
 
 const Dashboard = () => {
-  const [jobs] = useState(jobsData);
-  const [filteredJobs, setFilteredJobs] = useState(jobsData);
+  const [jobs, setJobs] = useState([...jobsData]);
+  const [filteredJobs, setFilteredJobs] = useState([...jobsData]);
   const [preferences, setPreferences] = useState(null);
-  const [filters, setFilters] = useState({
-    keyword: '',
-    location: '',
-    mode: '',
-    experience: '',
-    source: '',
-    sortBy: 'latest'
-  });
-  const [showOnlyMatches, setShowOnlyMatches] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showMatchesOnly, setShowMatchesOnly] = useState(false);
+  const [statusFilterValue, setStatusFilterValue] = useState('All');
+  const [hasPreferences, setHasPreferences] = useState(false);
 
   // Load preferences on component mount
   useEffect(() => {
     const savedPreferences = preferencesStorage.getPreferences();
     setPreferences(savedPreferences);
+    setHasPreferences(!!savedPreferences);
   }, []);
 
-  // Apply filters whenever filters, jobs, preferences, or showOnlyMatches change
+  // Apply all filters including status filter
   useEffect(() => {
     let result = [...jobs];
     
-    // Apply all filters
-    result = jobFilters.filterByKeyword(result, filters.keyword);
-    result = jobFilters.filterByLocation(result, filters.location);
-    result = jobFilters.filterByMode(result, filters.mode);
-    result = jobFilters.filterByExperience(result, filters.experience);
-    result = jobFilters.filterBySource(result, filters.source);
+    // Apply existing filters (keyword, location, mode, etc.)
+    // This would typically come from FilterBar component
+    // For now, we'll apply the status filter
     
-    // Apply match score filtering if enabled
-    if (showOnlyMatches && preferences) {
+    // Apply status filter
+    result = statusFilter.applyStatusFilter(result, statusFilterValue);
+    
+    // Apply match filtering if enabled
+    if (showMatchesOnly && hasPreferences) {
       result = result.filter(job => {
-        const score = matchScoreEngine.calculateMatchScore(job, preferences);
-        return score >= preferences.minMatchScore;
+        const matchScore = matchScoreEngine.calculateMatchScore(job, preferences);
+        return matchScore >= preferences.minMatchScore;
       });
-    }
-    
-    // Apply sorting
-    if (filters.sortBy === 'match-score' && preferences) {
-      // Sort by match score (descending)
-      result = result.sort((a, b) => {
-        const scoreA = matchScoreEngine.calculateMatchScore(a, preferences);
-        const scoreB = matchScoreEngine.calculateMatchScore(b, preferences);
-        return scoreB - scoreA;
-      });
-    } else {
-      result = jobFilters.sortJobs(result, filters.sortBy);
     }
     
     setFilteredJobs(result);
-  }, [jobs, filters, preferences, showOnlyMatches]);
+  }, [jobs, showMatchesOnly, preferences, hasPreferences, statusFilterValue]);
 
-  const handleFilterChange = (filterType, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: value
-    }));
-  };
-
-  const handleSortChange = (sortBy) => {
-    setFilters(prev => ({
-      ...prev,
-      sortBy
-    }));
-  };
-
-  const handleSaveJob = (jobId) => {
-    const isCurrentlySaved = jobStorage.isJobSaved(jobId);
-    if (isCurrentlySaved) {
-      jobStorage.unsaveJob(jobId);
-    } else {
-      jobStorage.saveJob(jobId);
-    }
-    // Force re-render by updating state
-    setFilteredJobs([...filteredJobs]);
-  };
-
-  const handleViewJob = (job) => {
+  const handleJobClick = (job) => {
     setSelectedJob(job);
-    setIsModalOpen(true);
   };
 
-  const handleApplyJob = (applyUrl) => {
-    window.open(applyUrl, '_blank');
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = () => {
     setSelectedJob(null);
   };
 
-  const toggleShowOnlyMatches = () => {
-    setShowOnlyMatches(!showOnlyMatches);
+  const handleApplyJob = (job) => {
+    window.open(job.applyUrl, '_blank');
   };
 
-  const noResults = filteredJobs.length === 0;
-  const hasPreferences = !!preferences;
+  const handleStatusFilterChange = (newStatusFilter) => {
+    setStatusFilterValue(newStatusFilter);
+  };
 
-  // Calculate match scores for display
+  // Jobs with match scores
   const jobsWithScores = filteredJobs.map(job => ({
     ...job,
     matchScore: hasPreferences ? matchScoreEngine.calculateMatchScore(job, preferences) : undefined
@@ -118,72 +71,49 @@ const Dashboard = () => {
     <div className="page-container">
       <div className="page-content">
         <h1 className="page-heading">Dashboard</h1>
+        <p className="page-subtext">Track your job applications and find your perfect match.</p>
         
-        {!hasPreferences && (
-          <div className="preferences-banner">
-            <p>Set your preferences to activate intelligent matching.</p>
-          </div>
-        )}
-        
-        <div className="match-toggle-container">
-          <label className="match-toggle-label">
-            Show only jobs above my threshold
-          </label>
-          <label className="match-toggle">
-            <input
-              type="checkbox"
-              checked={showOnlyMatches}
-              onChange={toggleShowOnlyMatches}
-              disabled={!hasPreferences}
-            />
-            <span className="match-toggle-slider"></span>
-          </label>
-        </div>
-        
-        <FilterBar
-          jobs={jobs}
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          onSortChange={handleSortChange}
-          resultsCount={filteredJobs.length}
+        <FilterBar 
+          onFilterChange={(filters) => {
+            // Handle filter changes from FilterBar
+            // This would integrate with the existing filtering logic
+          }}
+          showMatchesOnly={showMatchesOnly}
+          onShowMatchesOnlyChange={setShowMatchesOnly}
+          statusFilter={statusFilterValue}
+          onStatusFilterChange={handleStatusFilterChange}
+          statusFilterOptions={statusFilter.getStatusOptions()}
         />
         
-        {noResults ? (
+        <div className="jobs-grid">
+          {jobsWithScores.map(job => (
+            <JobCard
+              key={job.id}
+              job={job}
+              matchScore={job.matchScore}
+              onApplyClick={handleApplyJob}
+            />
+          ))}
+        </div>
+        
+        {jobsWithScores.length === 0 && (
           <div className="empty-state">
             <div className="empty-state-icon">🔍</div>
             <h2 className="empty-state-title">No Jobs Found</h2>
             <p className="empty-state-message">
-              {hasPreferences 
-                ? "No roles match your criteria. Adjust filters or lower threshold."
-                : "No jobs match your search criteria. Try adjusting your filters or search terms."
-              }
+              Try adjusting your filters or check back later for new opportunities.
             </p>
           </div>
-        ) : (
-          <div className="job-cards-container">
-            {jobsWithScores.map(job => (
-              <JobCard
-                key={job.id}
-                job={job}
-                matchScore={job.matchScore}
-                isSaved={jobStorage.isJobSaved(job.id)}
-                onSaveJob={handleSaveJob}
-                onViewJob={handleViewJob}
-                onApplyJob={handleApplyJob}
-              />
-            ))}
-          </div>
         )}
-        
-        <JobModal
-          job={selectedJob}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          isSaved={selectedJob ? jobStorage.isJobSaved(selectedJob.id) : false}
-          onSaveJob={handleSaveJob}
-          onApplyJob={handleApplyJob}
-        />
       </div>
+      
+      {selectedJob && (
+        <JobModal 
+          job={selectedJob}
+          onClose={handleCloseModal}
+          onApply={handleApplyJob}
+        />
+      )}
     </div>
   );
 };

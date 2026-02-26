@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { preferencesStorage } from '../utils/preferences';
 import { digestStorage, digestEngine } from '../utils/digest';
+import { statusHistory } from '../utils/jobStatus';
+import jobsData from '../data/jobsData';
 
 const Digest = () => {
   const [preferences, setPreferences] = useState(null);
   const [digest, setDigest] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState('');
+  const [recentStatusUpdates, setRecentStatusUpdates] = useState([]);
 
   // Load preferences and check for existing digest on component mount
   useEffect(() => {
@@ -18,6 +21,10 @@ const Digest = () => {
     if (existingDigest) {
       setDigest(existingDigest);
     }
+    
+    // Load recent status updates
+    const updates = statusHistory.getRecentUpdatesWithJobs(jobsData);
+    setRecentStatusUpdates(updates);
   }, []);
 
   // Handle digest generation
@@ -33,6 +40,10 @@ const Digest = () => {
     try {
       const newDigest = digestEngine.generateTodaysDigest(preferences);
       setDigest(newDigest);
+      
+      // Refresh status updates after digest generation
+      const updates = statusHistory.getRecentUpdatesWithJobs(jobsData);
+      setRecentStatusUpdates(updates);
     } catch (err) {
       setError('Failed to generate digest. Please try again.');
       console.error('Digest generation error:', err);
@@ -86,10 +97,22 @@ const Digest = () => {
     });
   };
 
+  // Format timestamp for status updates
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   // Check states
   const hasPreferences = !!preferences;
   const hasDigest = !!digest;
   const hasJobs = hasDigest && digest.jobs && digest.jobs.length > 0;
+  const hasStatusUpdates = recentStatusUpdates.length > 0;
 
   return (
     <div className="page-container">
@@ -206,6 +229,35 @@ const Digest = () => {
             <p className="simulation-note">Demo Mode: Daily 9AM trigger simulated manually.</p>
           </div>
         )}
+        
+        {/* Recent Status Updates Section */}
+        <div className="status-updates-section">
+          <h3 className="section-title">Recent Status Updates</h3>
+          {hasStatusUpdates ? (
+            <div className="status-updates-list">
+              {recentStatusUpdates.slice(0, 10).map((update) => (
+                <div key={update.id} className="status-update-item">
+                  <div className="update-header">
+                    <h4 className="job-title">{update.jobTitle}</h4>
+                    <span className="update-timestamp">{formatTimestamp(update.timestamp)}</span>
+                  </div>
+                  <div className="update-details">
+                    <span className="company">{update.company}</span>
+                    <span className="status-badge">{update.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <div className="empty-state-icon">📊</div>
+              <h2 className="empty-state-title">No Status Updates Yet</h2>
+              <p className="empty-state-message">
+                Update job statuses on the Dashboard to see recent changes here.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

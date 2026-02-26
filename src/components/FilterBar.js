@@ -1,108 +1,154 @@
-import React from 'react';
-import { jobFilters } from '../utils/jobUtils';
+import React, { useState } from 'react';
+import { jobUtils } from '../utils/jobUtils';
 
 const FilterBar = ({ 
-  jobs, 
-  filters, 
   onFilterChange, 
-  onSortChange, 
-  resultsCount 
+  showMatchesOnly, 
+  onShowMatchesOnlyChange,
+  statusFilter,
+  onStatusFilterChange,
+  statusFilterOptions
 }) => {
-  const filterOptions = jobFilters.getFilterOptions(jobs);
+  const [filters, setFilters] = useState({
+    keyword: '',
+    location: '',
+    mode: '',
+    experience: '',
+    source: '',
+    sortBy: 'Latest'
+  });
 
-  const handleFilterChange = (filterType, value) => {
-    onFilterChange(filterType, value === `All ${filterType === 'locations' ? 'Locations' : filterType === 'modes' ? 'Modes' : filterType === 'experiences' ? 'Experience Levels' : 'Sources'}` ? '' : value);
+  const handleFilterChange = (filterName, value) => {
+    const newFilters = { ...filters, [filterName]: value };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
   };
+
+  const handleStatusFilterChange = (value) => {
+    onStatusFilterChange(value);
+  };
+
+  const locations = jobUtils.getUniqueValues('location');
+  const modes = ['Remote', 'Hybrid', 'Onsite'];
+  const experiences = ['Fresher', '0-1 years', '1-3 years', '3-5 years', '5+ years'];
+  const sources = ['LinkedIn', 'Naukri', 'Indeed', 'AngelList'];
+  const sortByOptions = ['Latest', 'Match Score', 'Salary'];
 
   return (
     <div className="filter-bar">
       <div className="filter-row">
         <div className="filter-group">
+          <label htmlFor="keyword-filter" className="filter-label">Keyword</label>
           <input
+            id="keyword-filter"
             type="text"
-            placeholder="Search jobs by title or company..."
+            className="filter-input"
+            placeholder="Search by title or company"
             value={filters.keyword}
-            onChange={(e) => onFilterChange('keyword', e.target.value)}
-            className="search-input"
+            onChange={(e) => handleFilterChange('keyword', e.target.value)}
           />
         </div>
         
         <div className="filter-group">
+          <label htmlFor="location-filter" className="filter-label">Location</label>
           <select
+            id="location-filter"
+            className="filter-select"
             value={filters.location}
-            onChange={(e) => handleFilterChange('locations', e.target.value)}
-            className="filter-select"
+            onChange={(e) => handleFilterChange('location', e.target.value)}
           >
-            {filterOptions.locations.map(location => (
-              <option key={location} value={location}>
-                {location}
-              </option>
+            <option value="">All Locations</option>
+            {locations.map(location => (
+              <option key={location} value={location}>{location}</option>
             ))}
           </select>
         </div>
         
         <div className="filter-group">
+          <label htmlFor="mode-filter" className="filter-label">Mode</label>
           <select
+            id="mode-filter"
+            className="filter-select"
             value={filters.mode}
-            onChange={(e) => handleFilterChange('modes', e.target.value)}
-            className="filter-select"
+            onChange={(e) => handleFilterChange('mode', e.target.value)}
           >
-            {filterOptions.modes.map(mode => (
-              <option key={mode} value={mode}>
-                {mode}
-              </option>
+            <option value="">All Modes</option>
+            {modes.map(mode => (
+              <option key={mode} value={mode}>{mode}</option>
             ))}
           </select>
         </div>
-      </div>
-      
-      <div className="filter-row">
+        
         <div className="filter-group">
+          <label htmlFor="experience-filter" className="filter-label">Experience</label>
           <select
+            id="experience-filter"
+            className="filter-select"
             value={filters.experience}
-            onChange={(e) => handleFilterChange('experiences', e.target.value)}
-            className="filter-select"
+            onChange={(e) => handleFilterChange('experience', e.target.value)}
           >
-            {filterOptions.experiences.map(experience => (
-              <option key={experience} value={experience}>
-                {experience}
-              </option>
+            <option value="">All Levels</option>
+            {experiences.map(exp => (
+              <option key={exp} value={exp}>{exp}</option>
             ))}
           </select>
         </div>
         
         <div className="filter-group">
+          <label htmlFor="source-filter" className="filter-label">Source</label>
           <select
+            id="source-filter"
+            className="filter-select"
             value={filters.source}
-            onChange={(e) => handleFilterChange('sources', e.target.value)}
-            className="filter-select"
+            onChange={(e) => handleFilterChange('source', e.target.value)}
           >
-            {filterOptions.sources.map(source => (
-              <option key={source} value={source}>
-                {source}
-              </option>
+            <option value="">All Sources</option>
+            {sources.map(source => (
+              <option key={source} value={source}>{source}</option>
             ))}
           </select>
         </div>
         
         <div className="filter-group">
+          <label htmlFor="sort-filter" className="filter-label">Sort By</label>
           <select
-            value={filters.sortBy}
-            onChange={(e) => onSortChange(e.target.value)}
+            id="sort-filter"
             className="filter-select"
+            value={filters.sortBy}
+            onChange={(e) => handleFilterChange('sortBy', e.target.value)}
           >
-            <option value="latest">Latest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="title">Title A-Z</option>
-            <option value="company">Company A-Z</option>
-            <option value="match-score">Match Score</option>
-            <option value="salary-high">Highest Salary</option>
+            {sortByOptions.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+        
+        {/* Status Filter */}
+        <div className="filter-group">
+          <label htmlFor="status-filter" className="filter-label">Status</label>
+          <select
+            id="status-filter"
+            className="filter-select"
+            value={statusFilter}
+            onChange={(e) => handleStatusFilterChange(e.target.value)}
+          >
+            {statusFilterOptions.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}
           </select>
         </div>
       </div>
       
-      <div className="results-count">
-        {resultsCount} job{resultsCount !== 1 ? 's' : ''} found
+      <div className="filter-actions">
+        <label className="toggle-container">
+          <input
+            type="checkbox"
+            checked={showMatchesOnly}
+            onChange={(e) => onShowMatchesOnlyChange(e.target.checked)}
+          />
+          <span className="toggle-slider"></span>
+          Show only matches
+        </label>
       </div>
     </div>
   );
